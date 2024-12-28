@@ -1,84 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
+    />
 
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" />
+    <!-- Corrected styles link -->
+    <link rel="stylesheet" href="styles .css" />
 
-  <!-- Corrected styles link -->
-  <link rel="stylesheet" href="styles .css" />
+    <!-- jQuery -->
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.js"
+      integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+      crossorigin="anonymous"
+    ></script>
+    <title>ANT Training Technology</title>
+  </head>
 
-  <!-- jQuery -->
-  <script src="https://code.jquery.com/jquery-3.7.1.js"
-    integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
-    crossorigin="anonymous"></script>
-  <title>ANT Training Technology</title>
-</head>
+  <body>
+    <section class="section-center">
+      <form class="grocery-form">
+        <p class="alert"></p>
+        <h3>INPUT THE VALUE</h3>
+        <div class="form-control">
+          <input type="text" id="grocery" placeholder="INPUT THE VALUE" />
+          <button type="button" class="submit-btn" onclick="mainBtn()">
+            Submit
+          </button>
+        </div>
+      </form>
 
-<body>
-  <section class="section-center">
-    <form class="grocery-form">
-      <p class="alert"></p>
-      <h3>ANT Training Technology</h3>
-      <div class="form-control">
-        <input type="text" id="grocery" placeholder="INPUT THE VALUE" />
-        <button type="button" class="submit-btn" onclick="mainBtn()">Submit</button>
+      <!-- list -->
+      <div class="grocery-container">
+        <div class="grocery-list" id="listitem">
+          <article class="grocery-item">
+            <p class="title">Test</p>
+            <div class="btn-container">
+              <button class="edit-btn">
+                <!-- Removed onclick -->
+                <i class="fas fa-edit"></i>
+              </button>
+              <button class="delete-btn" onclick="deleteItem(this)">
+                <!-- Fixed function name -->
+                <i class="fas fa-trash"></i>
+              </button>
+            </div>
+          </article>
+          <article class="grocery-item">
+            <p class="title">Test</p>
+            <div class="btn-container">
+              <button class="edit-btn">
+                <!-- Removed onclick -->
+                <i class="fas fa-edit"></i>
+              </button>
+              <button class="delete-btn" onclick="deleteItem(this)">
+                <!-- Fixed function name -->
+                <i class="fas fa-trash"></i>
+              </button>
+            </div>
+          </article>
+        </div>
+        <!-- button -->
+        <button class="clear-btn" onclick="deleteAll()">Clear Items</button>
       </div>
-    </form>
+    </section>
+    <!-- javascript -->
+    <script>
+      let input = document.getElementById("grocery");
+      let selectedRow = null;
 
-    <!-- list -->
-    <div class="grocery-container">
-      <div class="grocery-list" id="listitem">
-        <article class="grocery-item">
-          <p class="title">Test</p>
-          <div class="btn-container">
-            <button class="edit-btn"> <!-- Removed onclick -->
-              <i class="fas fa-edit"></i>
-            </button>
-            <button class="delete-btn" onclick='deleteItem(this)'> <!-- Fixed function name -->
-              <i class="fas fa-trash"></i>
-            </button>
-          </div>
-        </article>
-        <article class="grocery-item">
-          <p class="title">Test</p>
-          <div class="btn-container">
-            <button class="edit-btn"> <!-- Removed onclick -->
-              <i class="fas fa-edit"></i>
-            </button>
-            <button class="delete-btn" onclick='deleteItem(this)'> <!-- Fixed function name -->
-              <i class="fas fa-trash"></i>
-            </button>
-          </div>
-        </article>
-      </div>
-      <!-- button -->
-      <button class="clear-btn" onclick="deleteAll()">Clear Items</button>
-    </div>
-  </section>
-  <!-- javascript -->
-  <script>
-    let input = document.getElementById('grocery');
-    let selectedRow = null;
-
-    function mainBtn() {
-      if (validate()) {
-        if (selectedRow == null) {
-          createItem();
-        } else {
-          updateItem();
-          selectedRow = null;
+      function mainBtn() {
+        if (validate()) {
+          if (selectedRow == null) {
+            createItem();
+          } else {
+            updateItem();
+            selectedRow = null;
+          }
+          input.value = "";
         }
-        input.value = '';
+        return false; // Prevent form submission
       }
-      return false; // Prevent form submission
-    }
 
-    function createItem() {
-      let item = `<article class="grocery-item">
+      function createItem() {
+        let item = `<article class="grocery-item">
         <p class="title">${input.value}</p>
         <div class="btn-container">
           <button class="edit-btn" onclick='editItem(this)'>
@@ -89,40 +99,41 @@
           </button>
         </div>
       </article>`;
-      document.getElementById('listitem').insertAdjacentHTML('afterbegin', item);
-    }
-
-    function editItem(row) {
-      selectedRow = row.parentElement.parentElement;
-      input.value = selectedRow.querySelector('.title').innerHTML;
-    }
-
-    function updateItem() {
-      selectedRow.querySelector('.title').innerHTML = input.value;
-    }
-
-    function deleteItem(row) {
-      let itemD = row.parentElement.parentElement;
-      itemD.remove();
-    }
-
-    function deleteAll() {
-      let itemC = document.querySelectorAll(".grocery-item");
-      itemC.forEach(item => {
-        item.remove();
-      });
-    }
-
-    function validate() {
-      let check = true;
-
-      if (input.value == '') {
-        alert('Please input data');
-        check = false;
+        document
+          .getElementById("listitem")
+          .insertAdjacentHTML("afterbegin", item);
       }
-      return check;
-    }
-  </script>
-</body>
 
+      function editItem(row) {
+        selectedRow = row.parentElement.parentElement;
+        input.value = selectedRow.querySelector(".title").innerHTML;
+      }
+
+      function updateItem() {
+        selectedRow.querySelector(".title").innerHTML = input.value;
+      }
+
+      function deleteItem(row) {
+        let itemD = row.parentElement.parentElement;
+        itemD.remove();
+      }
+
+      function deleteAll() {
+        let itemC = document.querySelectorAll(".grocery-item");
+        itemC.forEach((item) => {
+          item.remove();
+        });
+      }
+
+      function validate() {
+        let check = true;
+
+        if (input.value == "") {
+          alert("Please input data");
+          check = false;
+        }
+        return check;
+      }
+    </script>
+  </body>
 </html>
