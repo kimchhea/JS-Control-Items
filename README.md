@@ -109,11 +109,6 @@ Enhance the UI for better responsiveness and aesthetics.
 
 Implement drag-and-drop reordering of items.
 
-License
 
-This project is open-source and can be modified and distributed under the MIT License.
 
-Contact
-
-For questions or contributions, please contact [Your Name or Contact Information].
 
