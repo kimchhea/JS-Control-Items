@@ -103,8 +103,6 @@ Clear all items by clicking the "Clear Items" button.
 
 Future Improvements
 
-Add local storage functionality to save the list between sessions.
-
 Enhance the UI for better responsiveness and aesthetics.
 
 Implement drag-and-drop reordering of items.
